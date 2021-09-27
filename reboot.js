@@ -1,6 +1,5 @@
 const puppeteer = require("puppeteer");
-require('dotenv').config();
-
+require("dotenv").config();
 const url = process.env.IP;
 (async () => {
   const browser = await puppeteer.launch();
@@ -16,18 +15,18 @@ const url = process.env.IP;
   // Change frame
   const frameHandle = await page.$("frame[id='listfrm']");
   const frame = await frameHandle.contentFrame();
-  await frame.click("a#link_Admin_1");
-  console.log("Basic");
-  await frame.click("a#link_Admin_1_3");
-  console.log("WLAN");
+  await frame.click("a#link_Admin_3");
+  console.log("Maintenance");
+  await frame.click("a#link_Admin_3_1");
+  console.log("Dispositif");
 
-  // Change frame for checkbox
+  // Change frame for button
   const frameHandleContent = await page.$("frame[id='contentfrm']");
   const frmContent = await frameHandleContent.contentFrame();
+  console.log("frame changed");
   await frmContent.waitForTimeout(2000);
-  await frmContent.click("[name=wlEnbl]");
-  console.log("WLAN Checkbox");
-  console.log("WLAN Enabled/Disabled !");
+  await frmContent.click("button[name=btnReboot]");
+  console.log("Box start rebooting !");
   await frmContent.waitForTimeout(2000);
 
   await browser.close();
